@@ -1,22 +1,39 @@
- #!/bin/bash
+#!/bin/bash
 
- echo "Welcome To employee computation program"
+echo "WELCOME TO EMPLOYEE WAGE COMPUTATION PROGRAM"
+echo "--------------------------------------------"
 
- #Variable for checking the attendence
+#constant variables
+get_work_hrs ()
+{   
+    emp_attendence=$1
+     case $emp_attendence in 
+        0)
+            no_of_hrs_per_day=0
+            ;;
+        1)
+            no_of_hrs_per_day=8
+            ;;
+        2)
+            no_of_hrs_per_day=4
+            ;;
+    esac
+    echo "$no_of_hrs_per_day"
+}
 
- attendence_chk=$((RANDOM%2)) #0/1
+wage_per_hr=20
+max_hrs=100
+max_days=20
+total_working_hrs=0
+total_working_days=0
+while(( total_working_hrs < max_hrs && total_working_days < max_days ))
+do
+    (( total_working_days++ ))
+    emp_attendence=$(( RANDOM % 3 ))
+    no_of_hrs_per_day=$( get_work_hrs $emp_attendence)
+    (( total_working_hrs += no_of_hrs_per_day ))
+    
+done
 
- # Constant variable
- is_present=1
- full_day_hour=8
- wage_per_hour=20
- 
- salary=0
- # To check the attendence of the employee
- if [ $attendence_chk -eq $is_present ]
- then
-     salary=$(($full_day_hour * $wage_per_hour))
-     echo "Employee is Present for full day and the salary $salary"
- else
-     echo "Employee is Absent and the salary is $salary"
- fi
+total_salary=$(( total_working_hrs * wage_per_hr ))
+echo "Total salary is $total_salary"
