@@ -1,22 +1,23 @@
- #!/bin/bash
+#!/bin/bash
+#attendence check and wage calculation correspondingly
+attendence=$(( RANDOM % 3 ))
+case $attendence in 
+    0)
+        echo "Employee is absent"
+        no_of_hrs_per_day=0
+        ;;
+    1)
+        echo "Employee is full time present"
+        no_of_hrs_per_day=8
+        ;;
+    2)
+        echo "Employee is part time present"
+        no_of_hrs_per_day=4
+        ;;
+esac
 
- echo "Welcome To employee computation program"
-
- #Variable for checking the attendence
-
- attendence_chk=$((RANDOM%2)) #0/1
-
- # Constant variable
- is_present=1
- full_day_hour=8
- wage_per_hour=20
- 
- salary=0
- # To check the attendence of the employee
- if [ $attendence_chk -eq $is_present ]
- then
-     salary=$(($full_day_hour * $wage_per_hour))
-     echo "Employee is Present for full day and the salary $salary"
- else
-     echo "Employee is Absent and the salary is $salary"
- fi
+wage_per_hr=20
+wage_per_day=$(( wage_per_hr * no_of_hrs_per_day ))
+no_of_days_per_month=20
+wage_per_month=$(( wage_per_day * no_of_days_per_month ))
+echo "The Wage of the employee for the month is $wage_per_month"
